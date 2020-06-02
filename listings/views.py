@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator
 from .models import Listings
 
@@ -15,7 +15,12 @@ def index(request):
 
 def listing(request,list_id):
 
-	return render(request,'listings/listing.html')
+	list_fetch = get_object_or_404(Listings,pk=list_id)
+
+	context={
+		'list':list_fetch
+	}
+	return render(request,'listings/listing.html',context)
 
 def search(request):
 
